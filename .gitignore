@@ -13,9 +13,6 @@ test.py
 # Ignore Streamlit temporary files
 .streamlit/
 
-# Ignore compiled HTML files (optional, if generated)
-*.html
-
 # Ignore virtual environments (if created within the project directory)
 venv/
 .env
