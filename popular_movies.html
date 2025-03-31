@@ -1,0 +1,138 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popular Movies</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0E1117;
+            margin: 0;
+            padding: 0;
+        }
+        
+        #movies-container {
+            display: flex;
+            overflow-x: auto;
+            padding: 20px;
+            gap: 20px;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none; /* hide scrollbar in Firefox */
+            -ms-overflow-style: none; /* hide scrollbar in IE and Edge */
+        }
+
+        #movies-container::-webkit-scrollbar {
+            display: none; /* hide scrollbar in Chrome, Safari, and Opera */
+        }
+
+        .movie-card {
+            width: 200px;
+            flex: 0 0 auto;
+            margin-right: 20px;
+            padding: 15px;
+            background-color: #262730;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.5s;
+            scroll-snap-align: start;
+        }
+
+        .movie-card:hover {
+            transform: scale(1.05);
+        }
+
+        .movie-poster {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .movie-title {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #FAFAFA;
+        }
+
+        .movie-overview {
+            display: none;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            color: #FAFAFA;
+        }
+
+        .movie-release {
+            font-size: 0.8rem;
+            color: #FAFAFA;
+        }
+
+        .movie-card:hover .movie-overview {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+       
+    </header>
+    <div id="movies-container"></div>
+
+    <script>
+        const url = "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
+        const apiKey = "60039e34c25a25b8ca44082047aa767b"; // Replace with your TMDb API key
+
+        async function fetchMovies() {
+            try {
+                const response = await fetch(`${url}&api_key=${apiKey}`);
+                const data = await response.json();
+                displayMovies(data.results);
+            } catch (error) {
+                console.error("Error fetching movies:", error);
+            }
+        }
+
+        function displayMovies(movies) {
+            const container = document.getElementById("movies-container");
+
+            movies.forEach((movie) => {
+                const card = document.createElement("div");
+                card.classList.add("movie-card");
+
+                const poster = document.createElement("img");
+                poster.classList.add("movie-poster");
+                poster.src = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
+                poster.alt = `${movie.title} Poster`;
+                
+                const title = document.createElement("div");
+                title.classList.add("movie-title");
+                title.textContent = movie.title;
+
+                const overview = document.createElement("div");
+                overview.classList.add("movie-overview");
+                overview.textContent = movie.overview;
+
+                const release = document.createElement("div");
+                release.classList.add("movie-release");
+                release.textContent = `Release Date: ${movie.release_date}`;
+
+                card.appendChild(poster);
+                card.appendChild(title);
+                card.appendChild(release);
+                card.appendChild(overview);
+
+                container.appendChild(card);
+            });
+        }
+
+        // Call the fetchMovies function when the page loads
+        fetchMovies();
+    </script>
+</body>
+
+</html>
+
