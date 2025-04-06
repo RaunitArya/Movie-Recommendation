@@ -16,7 +16,7 @@ CinemAI is a machine learning-based movie recommendation system designed to help
 * * *
 ## Demo 🎬
 
-[Click here to watch the demo](https://github.com/RaunitArya/Movie-Recommendation/raw/main/main.mp4)
+![Demo](https://github.com/RaunitArya/Movie-Recommendation/raw/main/demo.gif)
 
 * * *
 
